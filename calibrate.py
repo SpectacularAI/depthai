@@ -86,6 +86,7 @@ camToMonoRes = {
 camToRgbRes = {
                 'IMX378' : dai.ColorCameraProperties.SensorResolution.THE_4_K,
                 'IMX214' : dai.ColorCameraProperties.SensorResolution.THE_4_K,
+                'imx412' : dai.ColorCameraProperties.SensorResolution.THE_800_P,
                 'OV9*82' : dai.ColorCameraProperties.SensorResolution.THE_800_P,
                 'ov9282' : dai.ColorCameraProperties.SensorResolution.THE_800_P,
                 'ov9782' : dai.ColorCameraProperties.SensorResolution.THE_800_P,
@@ -199,7 +200,7 @@ def parse_args():
             options.rgbLensPosition = 25
         else:
             options.rgbLensPosition = 135
-            
+
     return options
 
 class MessageSync:
@@ -1028,7 +1029,7 @@ class Main:
                     right_cam = result_config['cameras'][cam_info['extrinsics']['to_cam']]['name']
                     left_cam = cam_info['name']
 
-                    epipolar_threshold = 0.6
+                    epipolar_threshold = 1.5 # 0.6, but sometimes fails...
 
                     if cam_info['extrinsics']['epipolar_error'] > epipolar_threshold:
                         color = red
